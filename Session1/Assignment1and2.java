@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 class Node {
     int data;
     Node next;
@@ -9,10 +13,13 @@ class Node {
 
 class LinkedList {
     Node head;
+    List<Node> nodes = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
 
     void append(int data) {
         if (head == null) {
             head = new Node(data);
+            nodes.add(head);
             return;
         }
         Node temp = head;
@@ -20,6 +27,24 @@ class LinkedList {
             temp = temp.next;
         }
         temp.next = new Node(data);
+        nodes.add(temp.next);
+    }
+
+    void createLoop() {
+        System.out.println("Choose the option where you want to join the last element: ");
+        for(int index=0; index<nodes.size(); index++) {
+            System.out.println(index + ": data = " + nodes.get(index).data + " ( " + nodes.get(index) + " )");
+        }
+        System.out.println("-1: if you don't want to create a loop!");
+        int loopIndex = sc.nextInt();
+        if(loopIndex == -1) {
+            return;
+        }
+        Node temp = head;
+        while(temp.next != null) {
+            temp = temp.next;
+        }
+        temp.next = nodes.get(loopIndex);
     }
 
     void rotateSubList(int L, int R, int N) {
@@ -80,32 +105,7 @@ class LinkedList {
     }
 }
 
-// Polynomial representation
-class Polynomial {
-    static int findDegree(String poly) {
-        int maxDegree = 0;
-        String[] terms = poly.split(" ");
-        for (String term : terms) {
-            if (term.matches(".*[a-zA-Z].*")) {
-                int degree = 0;
-                for (int i = 0; i < term.length(); i++) {
-                    if (Character.isLetter(term.charAt(i))) {
-                        int exp = 1;
-                        if (i + 1 < term.length() && term.charAt(i + 1) == '^') {
-                            exp = Character.getNumericValue(term.charAt(i + 2));
-                            i += 2;
-                        }
-                        degree += exp;
-                    }
-                }
-                maxDegree = Math.max(maxDegree, degree);
-            }
-        }
-        return maxDegree;
-    }
-}
-
-public class Session1 {
+public class Assignment1and2 {
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
         list.append(2);
@@ -122,12 +122,10 @@ public class Session1 {
         System.out.println("List after rotating sublist:");
         list.display();
         
+        list.createLoop();
+
         // Check for loop detection
         System.out.println("Loop detected: " + list.detectLoop());
-        
-        // Finding degree of polynomial
-        String polynomial = "3x^2y^4 -5z^2 +x -y +20";
-        System.out.println("Degree of polynomial: " + Polynomial.findDegree(polynomial));
     }
 }
 
