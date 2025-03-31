@@ -73,14 +73,14 @@ class LinkedList {
         }
         
         // Reconnect after rotation
-        if (prevL != null) prevL.next = sublist[len - N];
-        else head = sublist[len - N];
+        if (prevL != null) prevL.next = sublist[N];
+        else head = sublist[N];
         sublist[len - 1].next = sublist[0];
         for (int i = len - N; i < len - 1; i++) {
             sublist[i].next = sublist[i + 1];
         }
-        sublist[N] = nextR;
-        for (int i = 0; i < len - N; i++) {
+        sublist[N-1].next = nextR;
+        for (int i = 0; i < N - 1; i++) {
             sublist[i].next = sublist[i + 1];
         }
     }
@@ -118,7 +118,7 @@ public class Assignment1and2 {
         System.out.println("Original list:");
         list.display();
         
-        list.rotateSubList(2, 5, 2);
+        list.rotateSubList(3, 6, 3);
         System.out.println("List after rotating sublist:");
         list.display();
         
