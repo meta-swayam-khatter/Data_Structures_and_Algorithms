@@ -85,7 +85,7 @@ public class ListStack<T> implements Stack<T> {
     public void display() {
         try {
             if(isEmpty()) {
-                System.out.println("Stack is emply!");
+                System.out.println("Stack is empty!");
                 return;
             }
             for(T item : stack) {

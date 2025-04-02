@@ -47,9 +47,13 @@ public class Assignment1 {
     }
     
     private void processOperation(Stack<Integer> values, String op) {
-        if(op == "!") {
+        if(op.equals("!")) {
             int x = values.pop();
-            values.push(~ x);
+            if(x == 0) {
+                values.push(1);
+            } else {
+                values.push(0);
+            }
         } else {
             int b = values.pop();
             int a = values.pop();
@@ -64,8 +68,8 @@ public class Assignment1 {
                 case ">": if(a > b) values.push(1); else values.push(0); break;
                 case "<=": if(a <= b) values.push(1); else values.push(0); break;
                 case ">=": if(a >= b) values.push(1); else values.push(0); break;
-                case "&&": values.push(a & b); break;
-                case "||": values.push(a | b); break;
+                case "&&": if(a == 0 || b == 0) values.push(0); else values.push(1); break;
+                case "||": if(a == 0 && b == 0) values.push(0); values.push(1); break;
             }
         }
     }
