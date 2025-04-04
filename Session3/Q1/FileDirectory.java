@@ -1,4 +1,4 @@
-package Session3;
+package Session3.Q1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class FileDirectory<T> extends Tree<T> {
         try {
             Node<T> newDirectory = new Node<T>(newDirectoryName, currentNode);
             for(Node<T> child : currentNode.getChildren()) {
-                if(child.getData() == newDirectoryName) {
+                if(child.getData().equals(newDirectoryName)) {
                     System.out.println("directory already present");
                     return;
                 }

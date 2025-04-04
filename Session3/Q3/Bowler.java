@@ -1,4 +1,4 @@
-package Session3;
+package Session3.Q3;
 
 public class Bowler{
     private String name;

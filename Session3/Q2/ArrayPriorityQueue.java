@@ -1,32 +1,54 @@
-package Session3;
+package Session3.Q2;
 
-public class CustomBowlerPriorityQueue{
-    private Bowler[] pQueue;
+interface PriorityQueue {
+    void enQueue(int item);
+    int deQueue();
+    boolean isFull();
+    boolean isEmpty();
+    void display();
+}
+
+public class ArrayPriorityQueue implements PriorityQueue {
+    private int[] pQueue;
     private int front, rear, count, size;
+    private qType type;
 
-    // @SuppressWarnings("unchecked")
-    CustomBowlerPriorityQueue(int size) {
-        this.pQueue = new Bowler[100];
+    public static enum qType{
+        DESC,
+        ASC;
+    }
+
+    ArrayPriorityQueue(int size) {
+        this.pQueue = new int[size];
         this.front = 0;
         this.rear = -1;
         this.count = 0;
         this.size = size;
     }
+
+    ArrayPriorityQueue(int size, qType type) {
+        this.pQueue = new int[size];
+        this.front = 0;
+        this.rear = -1;
+        this.count = 0;
+        this.size = size;
+        this.type = type;
+    }
     
-    public void enQueue(Bowler item) {
+    @Override
+    public void enQueue(int item) {
         try {
             if(isFull()) {
                 System.out.println("Overflow!");
                 return;
             }
             int pos = rear;
-            while(pos >= front && pQueue[pos].getNoOfBowls() <= item.getNoOfBowls()) {
-                // System.out.println("enqueing: " + pQueue[pos].getNoOfBowls() + " " + item.getNoOfBowls());
-                pQueue[(pos+1)] = pQueue[pos];
+            while(pos >= 0 && (type == qType.DESC ? pQueue[pos] <= item : pQueue[pos] >= item)) {
+                pQueue[(pos+1)%size] = pQueue[pos];
                 pos--;
             }
             pQueue[pos+1] = item;
-            rear = (rear + 1);
+            rear = (rear + 1) % size;
             count++;
             return;
         } catch (Exception e) {
@@ -34,21 +56,23 @@ public class CustomBowlerPriorityQueue{
         }
     }
     
-    public Bowler deQueue() {
+    @Override
+    public int deQueue() {
         try {
             if(isEmpty()) {
                 System.out.println("Underflow!");
-                return null;
+                return -1;
             }
-            Bowler poped = pQueue[front];
-            front = (front + 1);
+            int poped = pQueue[front];
+            front = (front + 1) % size;
             count--;
             return poped;
         } catch (Exception e) {
-            return null;
+            return -1;
         }
     }
     
+    @Override
     public boolean isFull() {
         try {
             return (count == size);
@@ -57,6 +81,7 @@ public class CustomBowlerPriorityQueue{
         }
     }
     
+    @Override
     public boolean isEmpty() {
         try {
             return (count == 0);
@@ -65,22 +90,23 @@ public class CustomBowlerPriorityQueue{
         }
     }
     
+    @Override
     public void display() {
         try {
             if (isEmpty()) {
                 System.out.println("Empty Queue");
             } else {
-                // System.out.println("front: " + front + " rear: " + rear);
                 if (front < rear) {
                     for (int i = front; i <= rear; i++) {
-                        System.out.println(pQueue[i].getName() + " -> " + pQueue[i].getNoOfBowls());
+                        System.out.print(pQueue[i] + " ");
                     }
                 } else {
                     for (int i = front; i < size; i++) {
-                        System.out.println(pQueue[i].getName() + " -> " + pQueue[i].getNoOfBowls());
+                        System.out.print(pQueue[i] + " ");
                     }
+    
                     for (int i = 0; i <= rear; i++) {
-                        System.out.println(pQueue[i].getName() + " -> " + pQueue[i].getNoOfBowls());
+                        System.out.print(pQueue[i] + " ");
                     }
                 }
             }
@@ -89,4 +115,3 @@ public class CustomBowlerPriorityQueue{
         }
     }
 }
-

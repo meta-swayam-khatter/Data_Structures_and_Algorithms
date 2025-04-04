@@ -1,8 +1,8 @@
-package Session3;
+package Session3.Q2;
 
 public class Assignment2 {
     public static void main(String[] args) {
-        PriorityQueue pq = new ArrayPriorityQueue(5, ArrayPriorityQueue.qType.DESC);
+        PriorityQueue pq = new ArrayPriorityQueue(5);
         pq.enQueue(5);
         pq.enQueue(2);
         pq.enQueue(4);

@@ -1,11 +1,11 @@
-package Session3;
+package Session3.Q1;
 
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Assignment1 {
     public static void main(String[] args) {
-        Node<String> root = new Node<String>("swayam", null);
+        Node<String> root = new Node<String>("meta", null);
         FileDirectory<String> fd = new FileDirectory<String>(root);
         try (Scanner sc = new Scanner(System.in)) {
             while (true) {
@@ -33,8 +33,8 @@ public class Assignment1 {
                         break;
                 
                     case "ls":
-                        for(Node<String> directories: fd.listDirectories()) {
-                            System.out.println(directories.getData());
+                        for(Node<String> directory: fd.listDirectories()) {
+                            System.out.println(directory.getData() + "      " + directory.getCreatedAt());
                         }
                         break;
                 

@@ -1,4 +1,4 @@
-package Session3;
+package Session3.Q3;
 
 import java.util.Scanner;
 
