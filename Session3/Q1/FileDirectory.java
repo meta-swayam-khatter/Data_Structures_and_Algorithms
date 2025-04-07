@@ -83,7 +83,7 @@ public class FileDirectory<T> extends Tree<T> {
             if(tempRoot.getData().equals(directoryName)) {
                 return tempStack;
             }
-            for(Node<T> child : currentNode.getChildren()) {
+            for(Node<T> child : tempRoot.getChildren()) {
                 tempStack.add(child);
                 Stack<Node<T>> tempStack2 = findDirectory(directoryName, child, tempStack);
                 if(tempStack2.peek().getData().equals(directoryName)) {
