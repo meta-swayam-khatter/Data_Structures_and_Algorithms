@@ -106,9 +106,8 @@ public class FileDirectory<T> extends Tree<T> {
                 return;
             }
             System.out.println(prefix + "\u2514\u2500\u2500\u2500" + node.getData());
-
             for(Node<T> childNode : node.getChildren()) {
-                printTree(childNode, (prefix + "    "));
+                printTree(childNode, (prefix + "|    "));
             }
         } catch (Exception e) {
             return;
