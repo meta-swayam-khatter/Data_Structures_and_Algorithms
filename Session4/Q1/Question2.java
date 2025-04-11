@@ -25,9 +25,7 @@ public class Question2 {
         Collections.sort(employees, empCmpr);
 
         for (Employee employee : employees) {
-            System.out.println("empId: " + employee.getEmpId());
-            System.out.println("name: " + employee.getName());
-            System.out.println("address: " + employee.getAddress());
+            employee.printDetails();
         }
     }
 }

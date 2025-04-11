@@ -6,14 +6,14 @@ class OrganicCompound {
     private String compound;
 
     public OrganicCompound(String compound) {
-        this.compound = compound;
+        this.compound = compound.toUpperCase();
     }
 
     public String getCompound() {
         return compound;
     }
 
-    static boolean isNumber(String value) {
+    boolean isNumber(String value) {
         try {
             Integer.parseInt(value);
             return true;
@@ -26,6 +26,18 @@ class OrganicCompound {
         try {
             Stack<String> atomicStack = new Stack<String>();
             String[] atoms = compound.split("");
+            int valid = 0;
+            for (String atom : atoms) {
+                if(!(isNumber(atom) || atom.equals("C") || atom.equals("H") || atom.equals("O") || atom.equals("(") || atom.equals(")"))) {
+                    return -1;
+                }
+                if(atom == "(") {
+                    valid++;
+                } else if(atom == ")") {
+                    valid--;
+                }
+            }
+            if(valid != 0) return -1;
             for (int index=0; index<atoms.length; index++) {
                 switch (atoms[index]) {
                     case "(":
@@ -34,7 +46,7 @@ class OrganicCompound {
                 
                     case ")":
                         int value = 0;
-                        int num = 0;
+                        int num = 1;
                         index=index+1;
                         while(index < atoms.length && isNumber(atoms[index]) && (Integer.parseInt(atoms[index]) >= 0 && Integer.parseInt(atoms[index]) <= 9)) {
                             num = num*10 + Integer.parseInt(atoms[index]);
@@ -91,14 +103,18 @@ class OrganicCompound {
             return result;
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return -1;
+            return 0;
         }
     }
 }
 
 public class Q3 {
     public static void main(String[] args) {
-        OrganicCompound comp = new OrganicCompound("CH3(CH2)7 CH3");
+        OrganicCompound comp = new OrganicCompound("C(H3)");
+        if(comp.atomicMass() == -1) {
+            System.out.println("Invalid input!");
+            return;
+        }
         System.out.println("Atomic mass for " + comp.getCompound() +  " is: " +comp.atomicMass());
     }
 }
