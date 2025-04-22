@@ -27,7 +27,7 @@ public class EmployeeListQuickSort {
         if (a.salary != b.salary)
             return b.salary - a.salary;
         else
-            return a.age - b.age;
+            return b.age - a.age;
     }
 
     // Partition function
